@@ -8,4 +8,10 @@ jobs:
       - run: yarn
       - run: yarn lint
       - run: yarn test-expressions
-      - run: yarn test-unit
+      # - run: yarn test-unit
+      - run:
+          name: If on master, build and deploy
+          command: |
+            if [ "${CIRCLE_BRANCH}" === "master" ];
+              then yarn build-prod && yarn deploy
+            fi
